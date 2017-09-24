@@ -1,0 +1,10 @@
+.idea
+*.iml
+
+lib/
+felix-cache
+
+.gradle
+
+out
+build

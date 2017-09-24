@@ -1,0 +1,67 @@
+apply plugin: 'java'
+apply plugin: 'osgi'
+apply plugin: 'org.springframework.boot'
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile 'org.springframework.boot:spring-boot-starter-logging'
+    compile(group: 'org.osgi', name: 'org.osgi.core', version:'4.2.0')
+}
+
+/*
+http://njbartlett.name/2010/08/30/osgi-readiness-loading-classes.html
+classloader issue.
+not only spring. Also class.forName (legacy way to load db drivers?)
+annotation processing,
+
+https://wiki.eclipse.org/Context_Class_Loader_Enhancements
+ */
+
+/**
+ * https://felix.apache.org/documentation/subprojects/apache-felix-ipojo.html
+ * osgi for dummies?
+ */
+
+/**
+ * use https://github.com/renatoathaydes/osgi-run
+ * to have task that will start container to test plugins
+ *
+ * we will see if we create osgi plugin or impostor:)
+ */
+
+/**
+ * For testing plugin requires osgi container.
+ * I propose that plugin colaborate with platform (application, container) only by OSGI modules.
+ * Otherwise it will be HARD to test plugins.
+ *
+ * With my approach it will be EASY to test plugins. Actually, we will be able to version
+ * platform bundles!
+ *
+ * So we will have
+ *  Container
+ *      loads OSGI containers
+ *      OSGI containers loads user plugins
+ *      OSGI container loads standard SDK plugins (logging, configuration)
+ *      user plugins loads some optional SDK plugins
+ *
+ *  OSGI container
+ *   specification, not implementation
+ *   completly 3rd party
+ *   like Spring. we do not customize spring
+ *
+ *  SDK bundles
+ *      logging
+ *      configuration ?
+ *
+ *  Plugins (custom, 3rd party bundles)
+ *    plugins share data with platfor only by SDK plugins.
+ *    no custom context
+ *    ability to share diffrent things with diffrent plugins
+ */
+
+bootRepackage {
+    enabled =false
+}

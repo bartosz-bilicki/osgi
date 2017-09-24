@@ -1,0 +1,2 @@
+include ':osgi-module'
+project(':osgi-module').projectDir = new File(settingsDir, '../osgi-module')
